@@ -3,6 +3,7 @@ var TAU = Math.PI * 2;
 
 var fileInput = document.querySelector("#file-choose");
 var colorToggle = document.querySelector("#color-toggle");
+var goButton = document.querySelector("#go-button");
 
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
@@ -48,8 +49,8 @@ function drawDots(data){
     }
 }
 
-fileInput.addEventListener("change", function(){
-    var file = this.files[0];
+function readImage(elem){
+    var file = elem.files[0];
     if (file) {
         var img = new Image();
         img.src = URL.createObjectURL(file);
@@ -67,4 +68,12 @@ fileInput.addEventListener("change", function(){
             drawDots(ctx.getImageData(0, 0, canvas.width, canvas.height).data);
         };
     }
+}
+
+fileInput.addEventListener("change", function(){
+    readImage(this);
+});
+
+goButton.addEventListener("click", function(){
+    readImage(fileInput);
 });
