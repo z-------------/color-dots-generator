@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Color Dots Generator</title>
+        <meta charset="utf-8">
+        <style>
+            body {
+                font-family: sans-serif;
+            }
+            
+            canvas {
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Color Dots Generator</h1>
+        
+        <div id="form">
+            <input type="file" id="file-choose" accept="image/*">
+            <label>
+                <span>Color</span><input type="checkbox" id="color-toggle">
+            </label>
+        </div>
+        
+        <canvas id="output" width="700"></canvas>
+        
+        <script src="color2color.min.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>
