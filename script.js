@@ -1,5 +1,6 @@
 var IMG_WIDTH = 20;
 var TAU = Math.PI * 2;
+var CIRCLE_RELRAD = 0.9;
 
 var fileInput = document.querySelector("#file-choose");
 var colorToggle = document.querySelector("#color-toggle");
@@ -25,13 +26,22 @@ function drawDots(data){
         var gx = (i / 4) % IMG_WIDTH;
         var x = unitWidth * gx + unitWidth / 2;
         var y = unitWidth * gy + unitWidth / 2;
-        var r = (unitWidth / 2) * 0.8;
+        var r = (unitWidth / 2) * CIRCLE_RELRAD;
         var dr = r * lum;
         
         // color circle
         if (colorToggle.checked) {
             var hsl = color2color("rgb(" + [r, g, b].map(Math.round).join(",") + ")", "hsl");
-            var hsl = hsl.replace(/[^,]+$/g, "50%)");
+            
+            var hslRegex = /[^,]+$/g;
+            var hslLast = hsl.match(hslRegex)[0];
+            var hslLastInt = parseInt(hslLast);
+            if (hslLastInt < 50) {
+                hslLastInt = 50;
+                hsl = hsl.replace(hslRegex, hslLastInt + "%)");
+            }
+            
+            console.log(hsl);
 
             octx.fillStyle = hsl;
             octx.beginPath();
@@ -44,8 +54,6 @@ function drawDots(data){
         octx.beginPath();
         octx.arc(x, y, dr, 0, TAU);
         octx.fill();
-
-        console.log("rgb(" + [r, g, b].join(",") + ")", hsl);
     }
 }
 
