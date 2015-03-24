@@ -1,9 +1,10 @@
-var IMG_WIDTH = 20;
+var DEFAULT_IMG_WIDTH = 20;
 var TAU = Math.PI * 2;
 var CIRCLE_RELRAD = 0.9;
 
 var fileInput = document.querySelector("#file-choose");
 var colorToggle = document.querySelector("#color-toggle");
+var widthInput = document.querySelector("#width-input");
 var goButton = document.querySelector("#go-button");
 
 var canvas = document.createElement("canvas");
@@ -11,6 +12,12 @@ var ctx = canvas.getContext("2d");
 
 var ocanvas = document.querySelector("#output");
 var octx = ocanvas.getContext("2d");
+
+widthInput.value = DEFAULT_IMG_WIDTH;
+var imgWidth = Number(widthInput.value);
+widthInput.addEventListener("change", function(){
+    imgWidth = Number(this.value);
+});
 
 function drawDots(data){
     for (var i = 0; i < data.length; i += 4) {
@@ -20,10 +27,10 @@ function drawDots(data){
 
         var lum = (255 - (0.2126 * r + 0.7152 * g + 0.0722 * b)) / 255;
 
-        var unitWidth = ocanvas.width / IMG_WIDTH;
+        var unitWidth = ocanvas.width / imgWidth;
         
-        var gy = Math.floor((i / 4) / IMG_WIDTH);
-        var gx = (i / 4) % IMG_WIDTH;
+        var gy = Math.floor((i / 4) / imgWidth);
+        var gx = (i / 4) % imgWidth;
         var x = unitWidth * gx + unitWidth / 2;
         var y = unitWidth * gy + unitWidth / 2;
         var r = (unitWidth / 2) * CIRCLE_RELRAD;
@@ -63,8 +70,8 @@ function readImage(elem){
         var img = new Image();
         img.src = URL.createObjectURL(file);
         img.onload = function(){
-            img.height = IMG_WIDTH * img.height / img.width;
-            img.width = IMG_WIDTH;
+            img.height = imgWidth * img.height / img.width;
+            img.width = imgWidth;
             
             canvas.width = img.width;
             canvas.height = img.height;
