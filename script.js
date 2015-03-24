@@ -89,6 +89,14 @@ fileInput.addEventListener("change", function(){
     readImage(this);
 });
 
+colorToggle.addEventListener("change", function(){
+    readImage(fileInput);
+});
+
+widthInput.addEventListener("change", function(){
+    readImage(fileInput);
+});
+
 goButton.addEventListener("click", function(){
     readImage(fileInput);
 });
